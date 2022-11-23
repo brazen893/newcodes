@@ -1,0 +1,22 @@
+clc;
+Fp = input("Enter the value of pass band frequency in hz:");
+Fs = input("Enter the value of stop band frequency in hz:");
+f = input("Enter the value of sampling frequency in  hz:");
+n = input("Enter the length of the window:");
+fc = 2*(Fp/f);
+window = blackman(n+1);
+b = fir1(n,fc,"low",window);
+[h w] = freqz(b,1);
+subplot(2,1,1);
+plot(w/pi,20*log10(abs(h)));
+grid on;
+xlabel("Normalized Frequency");
+ylabel("Gain in db");
+title("Magnitude Response of Low Pass FIR Filter");
+subplot(2,1,2);
+plot(w/pi,angle(h));
+grid on;
+xlabel("Normalized Frequency");
+ylabel("Phase in radians");
+title("Phase Response of Low Pass FIR Filter");
+
